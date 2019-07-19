@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="蒲笛扬">
+
+
+
+<title>大型网站架构问题总结（二） | 搞下学习</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sandy&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sandy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">大型网站架构问题总结（二）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">蒲笛扬</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 9, 2019&nbsp;&nbsp;21:21:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>本文是作者读 《大型网站技术架构》所做的思维导图，在这里分享给各位，公众号(JavaGuide)后台回复：“架构”。即可获得下面图片的源文件以及思维导图源文件！</p>
+</blockquote>
+<!-- MarkdownTOC -->
+
+<ul>
+<li><a href="#1-大型网站架构演化">1. 大型网站架构演化</a></li>
+<li><a href="#2-大型架构模式">2. 大型架构模式</a></li>
+<li><a href="#3-大型网站核心架构要素">3. 大型网站核心架构要素</a></li>
+<li><a href="#4-瞬时响应网站的高性能架构">4. 瞬时响应:网站的高性能架构</a></li>
+<li><a href="#5-万无一失网站的高可用架构">5. 万无一失:网站的高可用架构</a></li>
+<li><a href="#6-永无止境网站的伸缩性架构">6. 永无止境:网站的伸缩性架构</a></li>
+<li><a href="#7-随机应变网站的可扩展性架构">7. 随机应变:网站的可扩展性架构</a></li>
+<li><a href="#8-固若金汤网站的安全机构">8. 固若金汤:网站的安全机构</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+
+
+<h3 id="1-大型网站架构演化"><a href="#1-大型网站架构演化" class="headerlink" title="1. 大型网站架构演化"></a>1. 大型网站架构演化</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/1%20%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="1. 大型网站架构演化"></p>
+<h3 id="2-大型架构模式"><a href="#2-大型架构模式" class="headerlink" title="2. 大型架构模式"></a>2. 大型架构模式</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2%20%E5%A4%A7%E5%9E%8B%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.png" alt="2. 大型架构模式"></p>
+<h3 id="3-大型网站核心架构要素"><a href="#3-大型网站核心架构要素" class="headerlink" title="3. 大型网站核心架构要素"></a>3. 大型网站核心架构要素</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/3%20%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E8%A6%81%E7%B4%A0.png" alt="3. 大型网站核心架构要素"></p>
+<h3 id="4-瞬时响应-网站的高性能架构"><a href="#4-瞬时响应-网站的高性能架构" class="headerlink" title="4. 瞬时响应:网站的高性能架构"></a>4. 瞬时响应:网站的高性能架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/4%20%E7%9E%AC%E6%97%B6%E5%93%8D%E5%BA%94%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="4. 瞬时响应:网站的高性能架构"></p>
+<h3 id="5-万无一失-网站的高可用架构"><a href="#5-万无一失-网站的高可用架构" class="headerlink" title="5. 万无一失:网站的高可用架构"></a>5. 万无一失:网站的高可用架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/5%20%E4%B8%87%E6%97%A0%E4%B8%80%E5%A4%B1%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="5. 万无一失:网站的高可用架构"></p>
+<h3 id="6-永无止境-网站的伸缩性架构"><a href="#6-永无止境-网站的伸缩性架构" class="headerlink" title="6. 永无止境:网站的伸缩性架构"></a>6. 永无止境:网站的伸缩性架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/6%20%E6%B0%B8%E6%97%A0%E6%AD%A2%E5%A2%83%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84.png" alt="6. 永无止境:网站的伸缩性架构"></p>
+<h3 id="7-随机应变-网站的可扩展性架构"><a href="#7-随机应变-网站的可扩展性架构" class="headerlink" title="7. 随机应变:网站的可扩展性架构"></a>7. 随机应变:网站的可扩展性架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/7%20%E9%9A%8F%E6%9C%BA%E5%BA%94%E5%8F%98%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84.png" alt="7. 随机应变:网站的可扩展性架构"></p>
+<h3 id="8-固若金汤-网站的安全机构"><a href="#8-固若金汤-网站的安全机构" class="headerlink" title="8. 固若金汤:网站的安全机构"></a>8. 固若金汤:网站的安全机构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/8%20%E5%9B%BA%E8%8B%A5%E9%87%91%E6%B1%A4%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84.png" alt="enter image description here"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>蒲笛扬</span>
+                    </p>
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/分布式/"># 分布式</a>
+                    
+                        <a href="/tags/面试/"># 面试</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/07/18/面试总结（一）/">面试总结（一）</a>
+            
+            
+            <a class="next" rel="next" href="/2019/06/01/大型网站架构问题总结（一）/">大型网站架构问题总结（一）</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 蒲笛扬 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+		<br>
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            
+</footer>
+
+    </div>
+</body>
+</html>
