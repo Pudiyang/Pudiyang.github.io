@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="蒲笛扬">
+
+
+
+<title>常用设计模式 | 搞下学习</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sandy&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sandy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">常用设计模式</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">蒲笛扬</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 1, 2019&nbsp;&nbsp;19:13:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Java-设计模式"><a href="#Java-设计模式" class="headerlink" title="Java 设计模式"></a>Java 设计模式</h1><p>下面是自己学习设计模式的时候做的总结，有些是自己的原创文章，有些是网上写的比较好的文章，保存下来细细消化吧！</p>
+<p><strong>系列文章推荐：</strong><a href="https://design-patterns.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/index.html</a></p>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="创建型模式概述"><a href="#创建型模式概述" class="headerlink" title="创建型模式概述"></a>创建型模式概述</h3><ul>
+<li>创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。</li>
+<li>创建型模式在创建什么(What)，由谁创建(Who)，何时创建(When)等方面都为软件设计者提供了尽可能大的灵活性。创建型模式隐藏了类的实例的创建细节，通过隐藏对象如何被创建和组合在一起达到使整个系统独立的目的。 </li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/16/1640641afcb7559b?w=491&h=241&f=png&s=51443" alt="创建型模式"></p>
+<h3 id="常见创建型模式详解"><a href="#常见创建型模式详解" class="headerlink" title="常见创建型模式详解"></a>常见创建型模式详解</h3><ul>
+<li><strong>单例模式：</strong> <a href="https://blog.csdn.net/qq_34337272/article/details/80455972" target="_blank" rel="noopener">深入理解单例模式——只有一个实例</a></li>
+<li><strong>工厂模式：</strong> <a href="https://blog.csdn.net/qq_34337272/article/details/80472071" target="_blank" rel="noopener">深入理解工厂模式——由对象工厂生成对象</a></li>
+<li><strong>建造者模式：</strong> <a href="http://blog.csdn.net/qq_34337272/article/details/80540059" target="_blank" rel="noopener">深入理解建造者模式 ——组装复杂的实例</a></li>
+<li><strong>原型模式：</strong> <a href="https://blog.csdn.net/qq_34337272/article/details/80706444" target="_blank" rel="noopener">深入理解原型模式 ——通过复制生成实例</a></li>
+</ul>
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><h3 id="结构型模式概述"><a href="#结构型模式概述" class="headerlink" title="结构型模式概述"></a>结构型模式概述</h3><ul>
+<li><strong>结构型模式(Structural Pattern)：</strong> 描述如何将类或者对象结合在一起形成更大的结构，就像搭积木，可以通过简单积木的组合形成复杂的、功能更为强大的结构<br><img src="https://user-gold-cdn.xitu.io/2018/6/16/164064d6b3c205e3?w=719&h=233&f=png&s=270293" alt="结构型模式(Structural Pattern)"></li>
+<li><strong>结构型模式可以分为类结构型模式和对象结构型模式：</strong>  <ul>
+<li>类结构型模式关心类的组合，由多个类可以组合成一个更大的系统，在类结构型模式中一般只存在继承关系和实现关系。</li>
+<li>对象结构型模式关心类与对象的组合，通过关联关系使得在一个类中定义另一个类的实例对象，然后通过该对象调用其方法。根据“合成复用原则”，在系统中尽量使用关联关系来替代继承关系，因此大部分结构型模式都是对象结构型模式。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/16/1640655459d766d2?w=378&h=266&f=png&s=59652" alt="结构型模式"></p>
+<h3 id="常见结构型模式详解"><a href="#常见结构型模式详解" class="headerlink" title="常见结构型模式详解"></a>常见结构型模式详解</h3><ul>
+<li><strong>适配器模式：</strong><ul>
+<li><a href="https://segmentfault.com/a/1190000011856448" target="_blank" rel="noopener">深入理解适配器模式——加个“适配器”以便于复用</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-adapter-pattern/index.html" target="_blank" rel="noopener">适配器模式原理及实例介绍-IBM</a></li>
+</ul>
+</li>
+<li><strong>桥接模式：</strong> <a href="https://blog.csdn.net/yangzl2008/article/details/7670996" target="_blank" rel="noopener">设计模式笔记16：桥接模式(Bridge Pattern)</a></li>
+<li><strong>组合模式：</strong> <a href="https://blog.csdn.net/lmb55/article/details/51039781" target="_blank" rel="noopener">大话设计模式—组合模式</a></li>
+<li><strong>装饰模式：</strong> <a href="https://www.cnblogs.com/chenxing818/p/4705919.html" target="_blank" rel="noopener">java模式—装饰者模式</a>、<a href="https://blog.csdn.net/cauchyweierstrass/article/details/48240147" target="_blank" rel="noopener">Java设计模式-装饰者模式</a></li>
+<li><strong>外观模式：</strong> <a href="https://www.cnblogs.com/lthIU/p/5860607.html" target="_blank" rel="noopener">java设计模式之外观模式（门面模式）</a></li>
+<li><strong>享元模式：</strong> <a href="http://www.jasongj.com/design_pattern/flyweight/" target="_blank" rel="noopener">享元模式</a></li>
+<li><strong>代理模式：</strong><ul>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-proxy-pattern/index.html" target="_blank" rel="noopener">代理模式原理及实例讲解 （IBM出品，很不错）</a></li>
+<li><a href="https://blog.csdn.net/briblue/article/details/73928350" target="_blank" rel="noopener">轻松学，Java 中的代理模式及动态代理</a></li>
+<li><a href="https://blog.csdn.net/justloveyou_/article/details/74203025" target="_blank" rel="noopener">Java代理模式及其应用</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><h3 id="行为型模式概述"><a href="#行为型模式概述" class="headerlink" title="行为型模式概述"></a>行为型模式概述</h3><ul>
+<li>行为型模式(Behavioral Pattern)是对在不同的对象之间划分责任和算法的抽象化。</li>
+<li>行为型模式不仅仅关注类和对象的结构，而且重点关注它们之间的相互作用。</li>
+<li>通过行为型模式，可以更加清晰地划分类与对象的职责，并研究系统在运行时实例对象之间的交互。在系统运行时，对象并不是孤立的，它们可以通过相互通信与协作完成某些复杂功能，一个对象在运行时也将影响到其他对象的运行。 </li>
+</ul>
+<p><strong>行为型模式分为类行为型模式和对象行为型模式两种：</strong></p>
+<ul>
+<li><strong>类行为型模式：</strong> 类的行为型模式使用继承关系在几个类之间分配行为，类行为型模式主要通过多态等方式来分配父类与子类的职责。</li>
+<li><strong>对象行为型模式：</strong> 对象的行为型模式则使用对象的聚合关联关系来分配行为，对象行为型模式主要是通过对象关联等方式来分配两个或多个类的职责。根据“合成复用原则”，系统中要尽量使用关联关系来取代继承关系，因此大部分行为型设计模式都属于对象行为型设计模式。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/28/164467dd92c6172c?w=453&h=269&f=png&s=63270" alt="行为型模式"></p>
+<ul>
+<li><strong>职责链模式：</strong></li>
+<li><a href="https://blog.csdn.net/jason0539/article/details/45091639" target="_blank" rel="noopener">Java设计模式之责任链模式、职责链模式</a></li>
+<li><a href="https://www.cnblogs.com/lizo/p/7503862.html" target="_blank" rel="noopener">责任链模式实现的三种方式</a></li>
+<li><strong>命令模式：</strong> <a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/command.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/command.html</a> 在软件设计中，我们经常需要向某些对象发送请求，但是并不知道请求的接收者是谁，也不知道被请求的操作是哪个，我们只需在程序运行时指定具体的请求接收者即可，此时，可以使用命令模式来进行设计，使得请求发送者与请求接收者消除彼此之间的耦合，让对象之间的调用关系更加灵活。命令模式可以对发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。这就是命令模式的模式动机。</li>
+<li><strong>解释器模式：</strong></li>
+<li><strong>迭代器模式：</strong></li>
+<li><strong>中介者模式：</strong> <a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/mediator.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/mediator.html</a></li>
+<li><strong>备忘录模式：</strong></li>
+<li><strong>观察者模式：</strong> <a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html</a>、<a href="https://juejin.im/post/5c712ab56fb9a049a7127114" target="_blank" rel="noopener">https://juejin.im/post/5c712ab56fb9a049a7127114</a></li>
+<li><strong>状态模式：</strong><a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/state.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/state.html</a></li>
+<li><strong>策略模式：</strong><a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/strategy.html" target="_blank" rel="noopener">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/strategy.html</a></li>
+</ul>
+<p>策略模式作为设计原则中开闭原则最典型的体现，也是经常使用的。下面这篇博客介绍了策略模式一般的组成部分和概念，并用了一个小demo去说明了策略模式的应用。</p>
+<p><a href="https://blog.csdn.net/zlj1217/article/details/81230077" target="_blank" rel="noopener">java设计模式之策略模式</a></p>
+<ul>
+<li><strong>模板方法模式：</strong></li>
+<li><strong>访问者模式：</strong></li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>蒲笛扬</span>
+                    </p>
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/面试/"># 面试</a>
+                    
+                        <a href="/tags/工作/"># 工作</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/39e1ba6b/">大型网站架构问题总结（一）</a>
+            
+            
+            <a class="next" rel="next" href="/d3e5942f/">RabbitMQ 相关总结</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 蒲笛扬 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+		<br>
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            
+</footer>
+
+    </div>
+</body>
+</html>
