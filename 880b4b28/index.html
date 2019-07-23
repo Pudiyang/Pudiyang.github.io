@@ -9,7 +9,7 @@
 
 
 
-<title>大型网站架构问题总结（二） | 搞下学习</title>
+<title>Zookeepr复习（三） | 搞下学习</title>
 
 
 
@@ -171,7 +171,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">大型网站架构问题总结（二）</h1>
+            <h1 class="post-title">Zookeepr复习（三）</h1>
             
                 <div class="post-meta">
                     
@@ -180,7 +180,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 9, 2019&nbsp;&nbsp;21:21:00</a>
+                        Date: <a href="#">June 14, 2019&nbsp;&nbsp;19:33:00</a>
                         </span>
                     
                     
@@ -189,32 +189,25 @@
         </header>
 
         <div class="post-content">
-            <blockquote>
-<p>本文是作者读 《大型网站技术架构》所做的思维导图，在这里分享给各位，公众号(JavaGuide)后台回复：“架构”。即可获得下面图片的源文件以及思维导图源文件！</p>
-</blockquote>
-<!-- MarkdownTOC -->
-
+            <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><p>zookeeper 都有哪些使用场景？</p>
+<h2 id="面试官心理分析"><a href="#面试官心理分析" class="headerlink" title="面试官心理分析"></a>面试官心理分析</h2><p>现在聊的 topic 是分布式系统，面试官跟你聊完了 dubbo 相关的一些问题之后，已经确认你对分布式服务框架/RPC框架基本都有一些认知了。那么他可能开始要跟你聊分布式相关的其它问题了。</p>
+<p>分布式锁这个东西，很常用的，你做 Java 系统开发，分布式系统，可能会有一些场景会用到。最常用的分布式锁就是基于 zookeeper 来实现的。</p>
+<p>其实说实话，问这个问题，一般就是看看你是否了解 zookeeper，因为 zookeeper 是分布式系统中很常见的一个基础系统。而且问的话常问的就是说 zookeeper 的使用场景是什么？看你知道不知道一些基本的使用场景。但是其实 zookeeper 挖深了自然是可以问的很深很深的。</p>
+<h2 id="面试题剖析"><a href="#面试题剖析" class="headerlink" title="面试题剖析"></a>面试题剖析</h2><p>大致来说，zookeeper 的使用场景如下，我就举几个简单的，大家能说几个就好了：</p>
 <ul>
-<li><a href="#1-大型网站架构演化">1. 大型网站架构演化</a></li>
-<li><a href="#2-大型架构模式">2. 大型架构模式</a></li>
-<li><a href="#3-大型网站核心架构要素">3. 大型网站核心架构要素</a></li>
-<li><a href="#4-瞬时响应网站的高性能架构">4. 瞬时响应:网站的高性能架构</a></li>
-<li><a href="#5-万无一失网站的高可用架构">5. 万无一失:网站的高可用架构</a></li>
-<li><a href="#6-永无止境网站的伸缩性架构">6. 永无止境:网站的伸缩性架构</a></li>
-<li><a href="#7-随机应变网站的可扩展性架构">7. 随机应变:网站的可扩展性架构</a></li>
-<li><a href="#8-固若金汤网站的安全机构">8. 固若金汤:网站的安全机构</a></li>
+<li>分布式协调</li>
+<li>分布式锁</li>
+<li>元数据/配置信息管理</li>
+<li>HA高可用性</li>
 </ul>
-<!-- /MarkdownTOC -->
-
-
-<h3 id="1-大型网站架构演化"><a href="#1-大型网站架构演化" class="headerlink" title="1. 大型网站架构演化"></a>1. 大型网站架构演化</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/1%20%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="1. 大型网站架构演化"></p>
-<h3 id="2-大型架构模式"><a href="#2-大型架构模式" class="headerlink" title="2. 大型架构模式"></a>2. 大型架构模式</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2%20%E5%A4%A7%E5%9E%8B%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.png" alt="2. 大型架构模式"></p>
-<h3 id="3-大型网站核心架构要素"><a href="#3-大型网站核心架构要素" class="headerlink" title="3. 大型网站核心架构要素"></a>3. 大型网站核心架构要素</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/3%20%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E8%A6%81%E7%B4%A0.png" alt="3. 大型网站核心架构要素"></p>
-<h3 id="4-瞬时响应-网站的高性能架构"><a href="#4-瞬时响应-网站的高性能架构" class="headerlink" title="4. 瞬时响应:网站的高性能架构"></a>4. 瞬时响应:网站的高性能架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/4%20%E7%9E%AC%E6%97%B6%E5%93%8D%E5%BA%94%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84.png" alt="4. 瞬时响应:网站的高性能架构"></p>
-<h3 id="5-万无一失-网站的高可用架构"><a href="#5-万无一失-网站的高可用架构" class="headerlink" title="5. 万无一失:网站的高可用架构"></a>5. 万无一失:网站的高可用架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/5%20%E4%B8%87%E6%97%A0%E4%B8%80%E5%A4%B1%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="5. 万无一失:网站的高可用架构"></p>
-<h3 id="6-永无止境-网站的伸缩性架构"><a href="#6-永无止境-网站的伸缩性架构" class="headerlink" title="6. 永无止境:网站的伸缩性架构"></a>6. 永无止境:网站的伸缩性架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/6%20%E6%B0%B8%E6%97%A0%E6%AD%A2%E5%A2%83%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84.png" alt="6. 永无止境:网站的伸缩性架构"></p>
-<h3 id="7-随机应变-网站的可扩展性架构"><a href="#7-随机应变-网站的可扩展性架构" class="headerlink" title="7. 随机应变:网站的可扩展性架构"></a>7. 随机应变:网站的可扩展性架构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/7%20%E9%9A%8F%E6%9C%BA%E5%BA%94%E5%8F%98%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84.png" alt="7. 随机应变:网站的可扩展性架构"></p>
-<h3 id="8-固若金汤-网站的安全机构"><a href="#8-固若金汤-网站的安全机构" class="headerlink" title="8. 固若金汤:网站的安全机构"></a>8. 固若金汤:网站的安全机构</h3><p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/8%20%E5%9B%BA%E8%8B%A5%E9%87%91%E6%B1%A4%EF%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84.png" alt="enter image description here"></p>
+<h3 id="分布式协调"><a href="#分布式协调" class="headerlink" title="分布式协调"></a>分布式协调</h3><p>这个其实是 zookeeper 很经典的一个用法，简单来说，就好比，你 A 系统发送个请求到 mq，然后 B 系统消息消费之后处理了。那 A 系统如何知道 B 系统的处理结果？用 zookeeper 就可以实现分布式系统之间的协调工作。A 系统发送请求之后可以在 zookeeper 上<strong>对某个节点的值注册个监听器</strong>，一旦 B 系统处理完了就修改 zookeeper 那个节点的值，A 系统立马就可以收到通知，完美解决。</p>
+<p><img src="/images/pasted-13.png" alt="upload successful"></p>
+<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>举个栗子。对某一个数据连续发出两个修改操作，两台机器同时收到了请求，但是只能一台机器先执行完另外一个机器再执行。那么此时就可以使用 zookeeper 分布式锁，一个机器接收到了请求之后先获取 zookeeper 上的一把分布式锁，就是可以去创建一个 znode，接着执行操作；然后另外一个机器也<strong>尝试去创建</strong>那个 znode，结果发现自己创建不了，因为被别人创建了，那只能等着，等第一个机器执行完了自己再执行。</p>
+<p><img src="/images/pasted-14.png" alt="upload successful"></p>
+<h3 id="元数据-配置信息管理"><a href="#元数据-配置信息管理" class="headerlink" title="元数据/配置信息管理"></a>元数据/配置信息管理</h3><p>zookeeper 可以用作很多系统的配置信息的管理，比如 kafka、storm 等等很多分布式系统都会选用 zookeeper 来做一些元数据、配置信息的管理，包括 dubbo 注册中心不也支持 zookeeper 么？</p>
+<p><img src="/images/pasted-15.png" alt="upload successful"></p>
+<h3 id="HA高可用性"><a href="#HA高可用性" class="headerlink" title="HA高可用性"></a>HA高可用性</h3><p>这个应该是很常见的，比如 hadoop、hdfs、yarn 等很多大数据系统，都选择基于 zookeeper 来开发 HA 高可用机制，就是一个<strong>重要进程一般会做主备</strong>两个，主进程挂了立马通过 zookeeper 感知到切换到备用进程。</p>
+<p><img src="/images/pasted-16.png" alt="upload successful"></p>
 
         </div>
 
@@ -237,12 +230,6 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/分布式/"># 分布式</a>
-                    
-                        <a href="/tags/面试/"># 面试</a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -253,10 +240,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/880b4b28/">Zookeepr复习（三）</a>
+                <a class="prev" rel="prev" href="/1378700c/">Zookeeper - Redis 分布式锁对比</a>
             
             
-            <a class="next" rel="next" href="/39e1ba6b/">大型网站架构问题总结（一）</a>
+            <a class="next" rel="next" href="/9f756b3/">大型网站架构问题总结（二）</a>
             
         </section>
 
