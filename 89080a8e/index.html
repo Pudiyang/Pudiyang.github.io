@@ -240,6 +240,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.foo.Preferences "</span><span class="attr">scope</span>=<span class="string">"globalSession"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="二-bean的生命周期"><a href="#二-bean的生命周期" class="headerlink" title="二  bean的生命周期"></a>二  bean的生命周期</h1><p>Spring Bean是Spring应用中最最重要的部分了。所以来看看Spring容器在初始化一个bean的时候会做那些事情，顺序是怎样的，在容器关闭的时候，又会做哪些事情。</p>
+<p><img src="/images/pasted-1.png" alt="upload successful"></p>
 <blockquote>
 <p>spring版本：4.2.3.RELEASE<br>鉴于Spring源码是用gradle构建的，我也决定舍弃我大maven，尝试下洪菊推荐过的gradle。运行beanLifeCycle模块下的junit test即可在控制台看到如下输出，可以清楚了解Spring容器在创建，初始化和销毁Bean的时候依次做了那些事情。</p>
 </blockquote>
